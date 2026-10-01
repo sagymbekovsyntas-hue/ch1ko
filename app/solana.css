@@ -1,0 +1,32 @@
+.solana-achievement{border-color:#3b4437;background:radial-gradient(ellipse at 100% 0,#9945ff0a,transparent 45%),#101514}
+.solana-achievement .skill-profile-section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.solana-status,.achievement-status{padding:6px 8px;border:1px solid #4b563f;border-radius:3px;color:#d1e8aa;font:8px Consolas,monospace;letter-spacing:.06em}
+.solana-status.pending,.solana-status.failed,.achievement-status.unverified{border-color:#60443d;color:#f0b1a4}
+.solana-description,.solana-wallet-connect>p,.solana-empty>p{margin:0 0 13px;color:#a5b0a7;font-size:10px;line-height:1.7}
+.solana-wallet-list,.solana-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+.solana-wallet-list .button,.solana-actions .button{min-height:38px}
+.solana-connected{padding-top:13px;border-top:1px solid #28322e}
+.solana-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.solana-fact{min-width:0;padding:10px;border:1px solid #29332e;border-radius:3px;background:#0c1110}
+.solana-fact span{display:block;color:#8f9b92;font-size:8px}
+.solana-fact strong{display:block;margin-top:6px;color:#dce5db;font:9px Consolas,monospace;overflow-wrap:anywhere}
+.solana-proof{margin-top:13px;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px;border:1px solid #4d6240;border-radius:4px;background:#c7f36b08}
+.solana-proof>strong,.solana-proof>p{grid-column:1/-1}
+.solana-proof>strong{color:#d6efaa;font:10px Consolas,monospace;letter-spacing:.05em}
+.solana-proof>p{margin:0 0 4px;color:#a7b49e;font-size:9px;line-height:1.6}
+.solana-proof .solana-fact{padding:8px;background:#0d120f}
+.solana-actions{margin-top:14px}
+.solana-actions>a:not(.button),.solana-explorer-link,.solana-faucet,.solana-empty>a{color:#c1dc95;font-size:9px}
+.solana-disconnect{margin-top:13px;padding:5px 0;border:0;background:transparent;color:#87948b;font-size:9px;text-decoration:underline;cursor:pointer}
+.solana-error{margin:12px 0 0;padding:10px;border:1px solid #65413b;border-radius:3px;background:#ef7e680b;color:#f0b1a6;font-size:9px;line-height:1.6}
+.achievement-page{min-height:100vh;background:#0b0f0e;color:#e8ede7}
+.achievement-main{width:min(900px,calc(100% - 48px));margin:0 auto;padding:55px 0 75px}
+.achievement-header{margin-bottom:20px}.achievement-header h1{margin:9px 0;font-size:clamp(28px,5vw,42px);font-weight:550;letter-spacing:-.04em}.achievement-header>p:last-child{max-width:650px;color:#a5afa7;font-size:11px;line-height:1.7}
+.achievement-state-message{padding:25px;border:1px solid #303a35;border-radius:5px;color:#b4beb5;font-size:11px}
+.achievement-panel{padding:25px;border:1px solid #364238;border-radius:6px;background:radial-gradient(ellipse at 100% 0,#9945ff0c,transparent 48%),#101514}
+.achievement-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}.achievement-panel-heading h2{margin:7px 0 0;font-size:21px;font-weight:550}.achievement-status.verified{border-color:#556b43;background:#c7f36b0b;color:#dbefbb}
+.achievement-explanation{margin:15px 0;color:#adb8af;font-size:10px;line-height:1.75}
+.achievement-fields{margin:16px 0;display:grid;grid-template-columns:1fr 1fr;gap:8px}.achievement-fields>div{min-width:0;padding:11px;border:1px solid #29332e;border-radius:3px;background:#0c1110}.achievement-fields dt{color:#929e94;font-size:8px}.achievement-fields dd{margin:6px 0 0;color:#d9e2d9;font:9px Consolas,monospace;overflow-wrap:anywhere;line-height:1.5}
+.achievement-panel .button{min-height:39px}.achievement-local-note{margin:18px 0 0;padding-top:12px;border-top:1px solid #29332e;color:#87948b;font-size:9px;line-height:1.7}.achievement-panel>a:not(.button){color:#bfdc91;font-size:10px}
+.achievement-back{display:inline-block;margin-top:17px;color:#c4df98;font-size:10px}
+@media(max-width:680px){.achievement-main{width:calc(100% - 30px);padding:34px 0 48px}.achievement-panel{padding:18px}.achievement-panel-heading{align-items:flex-start;flex-direction:column}.solana-facts{grid-template-columns:1fr 1fr}.solana-proof{grid-template-columns:1fr}.solana-proof>strong,.solana-proof>p{grid-column:auto}.achievement-fields{grid-template-columns:1fr}.solana-achievement .skill-profile-section-heading{align-items:flex-start;flex-direction:column}}

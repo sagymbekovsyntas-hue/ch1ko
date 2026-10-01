@@ -1,69 +1,17 @@
-import Image from "next/image";
-
-export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
-}
+const steps=[["01","Create your profile","Share what you know and the work you want to do."],["02","Complete a challenge","Solve practical tasks built around real skills."],["03","Get evaluated","Get clear feedback on how you approached the work."],["04","Build your verified skill profile","Let completed work tell a stronger story."]];
+const categories=["Software Development","UI/UX","Data","Cybersecurity","Business"];
+const scores=[["Technical Skill",88],["Problem Solving",93],["Code Quality",84],["Creativity",91],["Initiative",96]] as const;
+function Brand(){return <a className="brand" href="#top"><span className="brand-mark">C</span>CH1KO</a>}
+function Button({href,children,ghost=false}:{href:string;children:React.ReactNode;ghost?:boolean}){return <a className={ghost?"button button-ghost":"button"} href={href}>{children}<span aria-hidden="true">{ghost?">":"->"}</span></a>}
+function Eyebrow({children}:{children:React.ReactNode}){return <span className="eyebrow"><i/>{children}</span>}
+function Header(){return <header className="header"><div className="nav"><Brand/><nav aria-label="Main navigation"><a href="#how">How It Works</a><a href="#challenges">Challenges</a><a href="/employers">For Employers</a></nav><div className="nav-right"><a href="/login">Log in</a><Button href="/register">Prove Your Skills</Button></div></div></header>}
+function ChallengeCard(){return <div className="challenge-card"><div className="challenge-bar"><span className="window-dots">...</span><span>CHALLENGE / FRONTEND</span><b><i/> OPEN</b></div><div className="challenge-content"><small>CH-001 <span>/</span> 45 MIN</small><h2>Build a resilient<br/>interface.</h2><p>Turn a product brief into a working, accessible component.</p><div className="code"><div><em>01</em><span className="kw">const</span> <span className="green">candidate</span> = &#123;</div><div><em>02</em>&nbsp; skills: <span className="orange">[&quot;craft&quot;, &quot;care&quot;]</span>,</div><div><em>03</em>&nbsp; proof: <span className="green">buildSomethingReal</span>(),</div><div><em>04</em>&#125;;</div><div><em>05</em><span className="comment">&#47;&#47; let the work speak</span></div></div><div className="card-meta"><span>&#10003; PRACTICAL WORK</span><span>01 / 04</span></div></div><div className="challenge-foot"><i/> EVIDENCE OVER CREDENTIALS</div></div>}
+function How(){return <section className="section" id="how"><div className="section-heading"><Eyebrow>A clearer path forward</Eyebrow><h2>How It Works</h2><p>A simple way to turn what you can do into proof others can understand.</p></div><ol className="steps">{steps.map(([n,t,d])=><li key={n}><span className="step-n">{n}<small> / 04</small></span><h3>{t}</h3><p>{d}</p><i/></li>)}</ol></section>}
+function Why(){return <section className="section why" id="employers"><div><Eyebrow>Why CH1KO</Eyebrow><h2>Potential doesn&apos;t always come with a diploma.</h2><p>Strong practical skills can grow outside a classroom. Talented people can be overlooked when their experience doesn&apos;t fit a traditional path.</p><p>CH1KO offers another way to demonstrate ability: through thoughtful challenges and real work.</p><a className="text-link" href="#profile">See a skill profile <span>-&gt;</span></a></div><aside><b>&ldquo;</b><strong>Show the work.<br/>Let skill speak.</strong><small>A better signal for ability.</small></aside></section>}
+function Categories(){return <section className="section" id="challenges"><div className="section-heading"><Eyebrow>Built around real ability</Eyebrow><h2>Skills, made visible</h2><p>Start with the work that matters to you. More disciplines will follow.</p></div><div className="categories">{categories.map((name,i)=><article className={i===0?"category active":"category"} key={name}><div><span>0{i+1}</span>{i===0&&<b><i/> MVP FOCUS</b>}</div><h3>{name}</h3><span className="cat-arrow">-&gt;</span></article>)}</div><p className="note"><i/>The current MVP starts with Software Development.</p></section>}
+function ProfileCard(){return <article className="profile-card"><div className="profile-top"><b><span className="brand-mark">C</span> CH1KO</b><small>SAMPLE PROFILE</small></div><div className="person"><div className="avatar">AK</div><div><h3>Software Developer</h3><p>Self-taught <span>/</span> Kazakhstan</p></div><i>&#10003;</i></div><hr/>{scores.map(([label,score])=><div className="score" key={label}><div><span>{label}</span><b>{score}</b></div><i><span style={{width:score+"%"}}/></i></div>)}<div className="overall"><span>OVERALL</span><b>91</b><small>/ 100</small></div><hr/><div className="completed"><span>Challenges completed</span><b>12</b></div><ul><li>&#10003; Frontend Challenge</li><li>&#10003; REST API Challenge</li><li>&#10003; Algorithm Challenge</li></ul><p className="disclaimer">Illustrative mock data</p></article>}
+function Profile(){return <section className="section profile" id="profile"><div><Eyebrow>More than a resume</Eyebrow><h2>A profile built from what you&apos;ve done.</h2><p>Every completed challenge adds a signal. Together, they create a clearer picture of your practical strengths.</p><div className="stat"><b>12</b><span>challenges completed<br/>in this example</span></div></div><ProfileCard/></section>}
+function Credential(){return <article className="credential"><div className="credential-top"><b><span className="brand-mark">C</span> CH1KO</b><span className="seal">SAMPLE</span></div><div className="credential-body"><small>SAMPLE CREDENTIAL / CHALLENGE #001</small><h3>Frontend<br/>Development</h3><div>SAMPLE SCORE <b>91<small>/100</small></b></div></div><div className="credential-bottom"><span><i/>Devnet anchor preview</span><span>Example ID <b>CH1KO-001-XXXX</b></span></div><strong className="watermark">C</strong></article>}
+function Verification(){return <section className="section verify"><div><Eyebrow>Portable proof</Eyebrow><h2>Your achievement.<br/><span>Independently verifiable.</span></h2><p>Eligible challenge results can be anchored on Solana Devnet. This card is an illustrative sample; open a candidate&apos;s public achievement page to inspect a real transaction proof.</p><div className="verify-note">&#10003; The chain anchors the credential record, not the evaluation&apos;s objective correctness.</div></div><Credential/></section>}
+function Footer(){return <footer className="footer"><div><div><Brand/><p>Proof of Skill</p></div><nav aria-label="Footer navigation"><a href="#how">How It Works</a><a href="#challenges">Challenges</a><a href="#employers">For Employers</a><a href="#about">About</a></nav></div><section className="cta" id="about"><Eyebrow>Your next step</Eyebrow><h2>Prove what you can build.</h2><p>Your skills deserve to be seen.</p><Button href="/register">Start Proving Your Skills</Button></section><small className="copyright">Copyright 2026 CH1KO. Built around what you can do. <span>PROOF OF SKILL <i/></span></small></footer>}
+export default function Home(){return <><Header/><main id="top"><section className="section hero"><div><div className="hero-tag"><i/>CH1KO <span/> PROOF OF SKILL</div><h1>Don&apos;t show us your diploma.<br/><span>Show us what you can build.</span></h1><p>Prove your real skills through practical challenges, AI-assisted evaluation and verifiable achievements.</p><div className="hero-actions"><Button href="/register">Prove Your Skills</Button><Button href="/employers" ghost>Explore Talent</Button></div><div className="proof">&#10003; Practical ability, backed by evidence.</div></div><div className="hero-visual"><div className="grid-bg"/><ChallengeCard/><div className="fig"><span>FIG. 01</span><span>SKILL IN PRACTICE</span></div></div></section><How/><Why/><Categories/><Profile/><Verification/></main><Footer/></>}
