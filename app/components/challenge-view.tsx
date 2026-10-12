@@ -44,6 +44,9 @@ export function ChallengeView() {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
+    let active = true;
+    queueMicrotask(() => {
+    if (!active) return;
     const initialStatus = beginChallenge();
     const initialTasks = readTasks();
     const username = readMockProfile()?.username ?? "local-user";
@@ -56,6 +59,8 @@ export function ChallengeView() {
     setUserId(username);
     setTasks(initialTasks);
     setTasksHydrated(true);
+    });
+    return () => { active = false; };
   }, []);
 
   useEffect(() => {

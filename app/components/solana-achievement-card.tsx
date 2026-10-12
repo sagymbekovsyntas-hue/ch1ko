@@ -35,10 +35,12 @@ export function SolanaAchievementCard({ profile, submission, record, artifactRea
 
   useEffect(() => {
     let active = true;
+    queueMicrotask(() => {
+    if (!active) return;
     const stored = submission ? getAchievementBySubmission(submission.id) : null;
     if (stored?.verificationStatus !== "VERIFIED" || !stored.transactionSignature) {
       setAchievement(stored);
-      return () => { active = false; };
+      return;
     }
     // Do not show a local "verified" label until this browser has checked the devnet proof.
     setAchievement({ ...stored, verificationStatus: "PENDING" });
@@ -56,8 +58,9 @@ export function SolanaAchievementCard({ profile, submission, record, artifactRea
       setAchievement(pending ?? { ...stored, verificationStatus: "PENDING" });
       setError("Solana Devnet could not be reached to reconfirm this saved proof.");
     });
+    });
     return () => { active = false; };
-  }, [submission?.id]);
+  }, [submission]);
 
   useEffect(() => {
     let active = true;

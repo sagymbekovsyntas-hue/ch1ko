@@ -23,7 +23,6 @@ export default function ProfilePage() {
 
   useEffect(() => {
     let active = true;
-    try {
       async function loadProfile() {
         try {
           const savedProfile = readMockProfile();
@@ -48,7 +47,6 @@ export default function ProfilePage() {
         } finally { if (active) setLoaded(true); }
       }
       void loadProfile();
-    } catch { setLoaded(true); }
     return () => { active = false; };
   }, []);
 

@@ -15,8 +15,13 @@ export function AiSkillEvaluationPanel({ submission }: { submission: ChallengeSu
   const [storageWarning, setStorageWarning] = useState(false);
 
   useEffect(() => {
-    setRecord(getAiEvaluation(submission.id));
-    setLoaded(true);
+    let active = true;
+    queueMicrotask(() => {
+      if (!active) return;
+      setRecord(getAiEvaluation(submission.id));
+      setLoaded(true);
+    });
+    return () => { active = false; };
   }, [submission.id]);
 
   async function runEvaluation() {
@@ -36,6 +41,7 @@ export function AiSkillEvaluationPanel({ submission }: { submission: ChallengeSu
       const response = await fetch("/api/evaluate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(75_000),
         body: JSON.stringify({
           submissionId: submission.id,
           artifactId: artifact.id,
@@ -72,6 +78,7 @@ export function AiSkillEvaluationPanel({ submission }: { submission: ChallengeSu
 
   return <section className="evaluation-section ai-evaluation-panel" aria-labelledby="ai-evaluation-title">
     <div className="ai-evaluation-heading"><div><p className="challenge-eyebrow"><i /> AI SKILL EVALUATION</p><h2 id="ai-evaluation-title">AI Evaluation</h2><p>Evaluation uses the uploaded implementation, not the CH1KO challenge demo.</p></div>{record && <StatusBadge status={record.evaluation.evaluationStatus} />}</div>
+    <p className="ai-storage-warning" role="status">Hackathon prototype · AI evaluation is unavailable for this demo. Uploaded files and preliminary checks remain available. No new AI score or credential will be generated.</p>
     {!loaded ? <p className="ai-evaluation-loading" aria-busy="true">Loading saved evaluation…</p> : record ? <>
       <section className="ai-overall-score"><div><span>OVERALL SCORE</span><strong>{record.evaluation.overallScore}<small>/100</small></strong></div><p>{record.evaluation.summary}</p></section>
       <div className="ai-score-grid">{scoreCards(record.evaluation).map(([label, score]) => <ScoreCard key={label} label={label} score={score} />)}</div>
@@ -137,6 +144,7 @@ function evidenceLevelLabel(level: string): string {
 function userMessageFromError(status: number, body: unknown): string {
   const error = isRecord(body) && isRecord(body.error) ? body.error : null;
   const code = error && typeof error.code === "string" ? error.code : "";
+  if (code === "AI_DEMO_UNAVAILABLE") return "AI evaluation is unavailable for this demo. Your uploaded files and preliminary checks are still available. No AI score or credential has been created.";
   if (code === "MISSING_API_KEY") return "AI evaluation is not configured on the server yet. Please contact the site administrator.";
   if (code === "INVALID_API_KEY") return "AI evaluation is not configured correctly. Please contact the site administrator.";
   if (code === "AI_RATE_LIMIT") return "AI evaluation is busy right now. Please wait a moment and try again.";

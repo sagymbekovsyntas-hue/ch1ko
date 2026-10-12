@@ -3,7 +3,7 @@ import { AI_EVALUATION_JSON_SCHEMA, CHALLENGE_REQUIREMENTS, INITIATIVE_FEATURES,
 import { AI_EVALUATION_INSTRUCTIONS } from "../../lib/ai-evaluation-prompt";
 import { calculateOverallScore } from "../../lib/ai-scoring";
 import { prepareBoundedEvaluationInput, validateArtifactForEvaluation } from "../../lib/ai-evaluation-input";
-import { createOpenAiClient, getEvaluationModel, hasOpenAiApiKey } from "../../lib/openai-server";
+import { createOpenAiClient, getEvaluationModel, hasOpenAiApiKey, isAiEvaluationAvailable } from "../../lib/openai-server";
 import type { AiSkillEvaluation } from "../../lib/ai-evaluation-types";
 
 export const runtime = "nodejs";
@@ -22,6 +22,9 @@ export async function POST(request: Request): Promise<Response> {
   const origin = request.headers.get("origin");
   if (!origin || !isSameOrigin(origin, request.url)) return errorResponse(403, "INVALID_ORIGIN", "This evaluation request was rejected.");
 
+  // The hackathon demo has no AI budget. Keep the integration, but never call it.
+  if (!isAiEvaluationAvailable()) return errorResponse(503, "AI_DEMO_UNAVAILABLE", "AI evaluation is unavailable for this demo. Your uploaded files and preliminary checks are still available. No AI score or credential has been created.");
+
   let bodyText: string;
   try {
     bodyText = await readLimitedBody(request, MAX_REQUEST_BYTES);
@@ -32,7 +35,9 @@ export async function POST(request: Request): Promise<Response> {
 
   let body: EvaluateRequest;
   try {
-    body = JSON.parse(bodyText) as EvaluateRequest;
+    const parsed: unknown = JSON.parse(bodyText);
+    if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) return errorResponse(400, "INVALID_REQUEST", "The evaluation request could not be read.");
+    body = parsed as EvaluateRequest;
   } catch {
     return errorResponse(400, "INVALID_JSON", "The evaluation request was not valid JSON.");
   }

@@ -9,6 +9,9 @@ export function AuthGate({ children, needsProfile = false }: { children: ReactNo
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    let active = true;
+    queueMicrotask(() => {
+    if (!active) return;
     if (!isMockAuthenticated()) {
       router.replace("/login");
       return;
@@ -24,6 +27,8 @@ export function AuthGate({ children, needsProfile = false }: { children: ReactNo
       return;
     }
     setReady(true);
+    });
+    return () => { active = false; };
   }, [needsProfile, router]);
 
   if (!ready) return <main className="auth-page" aria-busy="true"><p className="auth-loading">Loading your profile…</p></main>;
